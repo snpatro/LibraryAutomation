@@ -1,8 +1,8 @@
 const express =   require("express");
 const router  =   express.Router();
 const db = require("../models");
-
-router.put("/verify/:userId", (req, res, next) => {
+//user verify user
+router.put("/verify", (req, res, next) => {
     db.User.findOneAndUpdate({_id: req.params.userId}, {$set:{isVerified:true}}, {new: true}, (err, user) => {
         if(err) {
             return res.send({
@@ -20,7 +20,7 @@ router.put("/verify/:userId", (req, res, next) => {
         
     })
 });
-
+//update user data
 router.put("/user/:userId", (req, res, next) => {
 
     db.User.findOneAndUpdate({_id: req.params.userId}, req.body.User, {new: true} , (err, user) => {
@@ -39,24 +39,19 @@ router.put("/user/:userId", (req, res, next) => {
         })
     })
 });
-
-router.put("/userdata/:userId", (req, res, next) => {//depends on frontend
-    console.log(req.params.userId)
-    let ival= req.body.selectedap;
-    // let ival= [1,2,3,4,5];
-    
-    db.User.findOneAndUpdate({_id: req.params.userId}, {$set:{apAccess:ival}}, {new: true}, (err, user) => {
+//change password
+router.put("/changePassword", (req, res, next) => { 
+    db.User.findOneAndUpdate({username: req.body.username},{$set:{password:generateHash(password)}} ,{new: true}, (err, user) => {
         if(err) {
             console.log("error: "+err)
             return res.send({
                 success: false,
-                message: 'Error Granting Access'
+                message: 'error updating password'
             })
         }
-        // console.log(apAccess+"  granted access to these action plans");
         return res.send({
             success: true,
-            message: "Access provided as requested"
+            message: "password changed"
         })
     })
 });
