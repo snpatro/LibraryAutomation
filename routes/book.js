@@ -59,17 +59,10 @@ router.post("/addNewBook",(req,res,next)=>{
                     message: 'Book Not Created'
                 })
             }
-            let { _id, name, status,row,column,genre,issuer,barcode}= newBook;
+            
             res.send({
-                _id,
-                name, 
-                status,
-                row,
-                column,
-                genre,
-                issuer,
-                barcode,
-                mesage:'Book added to library',
+                newBook,
+                message:'Book added to library',
                 success:true
             })
         })

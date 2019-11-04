@@ -2,7 +2,7 @@ const express =   require("express");
 const router  =   express.Router();
 const db = require("../models");
 //user verify user
-router.put("/verify", (req, res, next) => {
+router.put("/verify/:userId", (req, res, next) => {
     db.User.findOneAndUpdate({_id: req.params.userId}, {$set:{isVerified:true}}, {new: true}, (err, user) => {
         if(err) {
             return res.send({

@@ -69,11 +69,7 @@ exports.signup = (req, res) => {
 
             let { _id,  email, Name, username, department, isAdmin, isVerified, proPic, inventory, fee} = newUser;
             let token = jwt.sign({ _id,  email, Name, username, department, isAdmin, isVerified, proPic, inventory, fee }, 'THISISMYBIGSECRETHUHUHAHA');
-            
-            return res.send({
-                success: true,
-                message: 'User Created',
-                id: _id,
+            let signedUser={id: _id,
                 Name,
                 email,
                 username,
@@ -83,7 +79,11 @@ exports.signup = (req, res) => {
                 isVerified,
                 proPic,
                 inventory,
-                fee
+                fee}
+            return res.send({
+                success: true,
+                message: 'User Created',
+                signedUser
             })
         })
     })
@@ -127,20 +127,21 @@ exports.signin = (req, res) => {
             else {
                 let { _id, email, Name, username, department, isAdmin, isVerified, proPic } = user;
                 let token = jwt.sign({  _id, email, Name, username, department, isAdmin, isVerified, proPic, inventory, fee }, 'THISISMYBIGSECRETHUHUHAHA');
+                let signedUser={id: _id,
+                    Name,
+                    username,
+                    department,
+                    token,
+                    isAdmin,
+                    isVerified,
+                    proPic,
+                    email,
+                    inventory,
+                    fee};
                return res.send({
                 success: true,
                 message: 'Sign In Ok',
-                id: _id,
-                Name,
-                username,
-                department,
-                token,
-                isAdmin,
-                isVerified,
-                proPic,
-                email,
-                inventory,
-                fee
+                signedUser
              })
             }
            
