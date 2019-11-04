@@ -31,4 +31,4 @@ const book = new mongoose.Schema({
         default: "in the inventory"
     }]
 });
-module.exports = mongoose.model('User', book);
+module.exports = mongoose.model('Book', book);
