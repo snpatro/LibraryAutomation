@@ -57,7 +57,7 @@ exports.signup = (req, res) => {
         newUser.Name = Name;
         newUser.username = username;
         newUser.department = department;
-        newUser.password = newUser.generateHash("password");
+        newUser.password = newUser.generateHash(password);
         newUser.save((err) => {
             if(err){
                 console.log(err)
@@ -125,7 +125,7 @@ exports.signin = (req, res) => {
                 });
             }
             else {
-                let { _id, email, Name, username, department, isAdmin, isVerified, proPic } = user;
+                let { _id, email, Name, username, department, isAdmin, isVerified, proPic,inventory,fee } = user;
                 let token = jwt.sign({  _id, email, Name, username, department, isAdmin, isVerified, proPic, inventory, fee }, 'THISISMYBIGSECRETHUHUHAHA');
                 let signedUser={id: _id,
                     Name,
