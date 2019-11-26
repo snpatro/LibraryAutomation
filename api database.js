@@ -13,7 +13,7 @@ Get all books (get):
 
 Add a book to the inventory (post):
 /api/books/addNewBook
-Req.body.createBook: name,barcode,row,column,genre
+Req.body.createBook: title,barcode,subject
 
 
 change password(put):

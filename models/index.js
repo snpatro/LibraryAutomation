@@ -1,6 +1,6 @@
 const mongoose  =   require("mongoose");
 mongoose.set("debug",true);
 // mongoose.Promise    =   Promise;
-mongoose.connect("mongodb://localhost:27017/LabAuto" );
+mongoose.connect("mongodb://semititans:semititans23@ds141168.mlab.com:41168/libauto" );
 module.exports.User     =   require("./user");
 module.exports.Book     =   require("./book");

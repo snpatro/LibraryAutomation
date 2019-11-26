@@ -4,11 +4,11 @@ const db = require("../models");
 
 //create new books
 router.post("/addNewBook",(req,res,next)=>{
-    const {name, barcode, row, column, genre}=req.body.createBook;
-    if(!name) {
+    const {title, barcode, subject}=req.body.createBook;
+    if(!title) {
         return res.send({
              success: false,
-             message: "Enter Name of the book"
+             message: "Enter Title of the book"
          })
     }
     if(!barcode) {
@@ -17,19 +17,7 @@ router.post("/addNewBook",(req,res,next)=>{
              message: "Enter barcode"
          })
     }
-    if(!row) {
-        return res.send({
-             success: false,
-             message: "Enter row number"
-         })
-    }
-    if(!column) {
-        return res.send({
-             success: false,
-             message: "Enter column Number"
-         })
-    }
-    if(!genre) {
+    if(!subject) {
         return res.send({
              success: false,
              message: "Enter genre Name"
@@ -45,12 +33,14 @@ router.post("/addNewBook",(req,res,next)=>{
         }
         else if(exBook.length > 0){
             return res.send({
-                Error: "Email Already Exist"
+                Error: "Book Already Exist"
             });
         }
 })
         const newBook = new db.Book();
-        newBook = {name, barcode, row, column, genre};
+        newBook.title=title;
+        newBook.subject=subject;
+        newBook.barcode=barcode;
         newBook.save((err) =>{
             if(err){
                 console.log(err);
@@ -82,6 +72,19 @@ router.get("/getAll", (req,res)    =>  {
             books,
             success:true,
             message:"Books Found"
+        })
+    })
+})
+//get subjects wise books
+
+router.get("/getAll/:subject",(req,res)=>{
+    db.Book.find({subject:req.params.subject},(err,books)=>{
+        if(err){
+            console.log(err);
+            return res.send({Error:"cannot find any books"})
+        }
+        res.send({
+            books
         })
     })
 })

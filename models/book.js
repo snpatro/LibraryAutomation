@@ -5,30 +5,22 @@ const book = new mongoose.Schema({
         default: 0,
         required: true
     }, 
-    name: {
+    title: {
         type: String,
         required: true
     }, 
     barcode: {
-        type: Number,
+        type: String,
         required: true
     }, 
-    row: {
-        type: Number,
-        required: true
-    }, 
-    column: {
-        type: Number,
-        required: true
-    }, 
-    genre: {
+    subject: {
         type: String,
         required: true
     }, 
     issuer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-        default: "in the inventory"
+        
     }]
 });
 module.exports = mongoose.model('Book', book);
